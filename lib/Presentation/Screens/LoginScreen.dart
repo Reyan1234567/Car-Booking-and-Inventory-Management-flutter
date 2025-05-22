@@ -1,16 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterpolo/Domain/entities/login.dart';
+import 'package:flutterpolo/Presentation/widgets/SnackBar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutterpolo/Presentation/widgets/TextButton.dart';
 import 'package:flutterpolo/Presentation/widgets/TextFields.dart';
 
-class Loginscreen extends StatefulWidget {
+import '../providers/login_providers.dart';
+import '../providers/login_state.dart';
+
+class Loginscreen extends ConsumerStatefulWidget {
   const Loginscreen({super.key});
 
   @override
-  State<Loginscreen> createState() => _LoginscreenState();
+  ConsumerState<Loginscreen> createState() => _LoginscreenState();
 }
-class _LoginscreenState extends State<Loginscreen> {
+class _LoginscreenState extends ConsumerState<Loginscreen> {
+  bool isLoading=false;
+
   String usernameErr='';
   String passwordErr='';
   bool obsecureText=true;
@@ -40,7 +48,8 @@ class _LoginscreenState extends State<Loginscreen> {
   }
   void _handleLogin(){
     if(validatePassword(passwordController.text)=='' && validateUsername(usernameController.text)==''){
-
+      final loginRequest=LoginRequest(usernameController.text, passwordController.text);
+      ref.read(loginNotifierProvider.notifier).login(loginRequest);
     }
     if(validateUsername(usernameController.text)!=''){
       setState(() {
@@ -69,9 +78,27 @@ class _LoginscreenState extends State<Loginscreen> {
     passwordController.dispose();
     super.dispose();
   }
-
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    ref.listen<LoginState>(loginNotifierProvider,(previous, next){
+      if(next.error!=null){
+        customSnackBar(context, "$next.error",Color(0xFFFF0000));
+      }
+      if(next.error==null && next.loginResponse!=null){
+        customSnackBar(context, "Welcome ${next.loginResponse?.user.username}", Color(0xFF008000));
+        context.go('/home');
+      }
+      if(next.error==null && next.isLoading!=previous?.isLoading){
+        setState(() {
+          isLoading=next.isLoading;
+        });
+      }
+    });
+  }
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state=ref.watch(loginNotifierProvider);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SizedBox.expand(
@@ -139,10 +166,9 @@ class _LoginscreenState extends State<Loginscreen> {
             ],
           ),
           SizedBox(height:20),
-          customTextButton(_handleLogin, "Login"),
+          customTextButton(_handleLogin, isLoading?CircularProgressIndicator():"Login"),
           SizedBox(height:20),
           Row(mainAxisAlignment:MainAxisAlignment.center,children:[Text("Dont have an account?"),TextButton(onPressed:(){context.go("/signup");}, child:Text(" Signup", style: TextStyle(color: Colors.blue.shade500)))]),
-
         ],
       )
           ,),
