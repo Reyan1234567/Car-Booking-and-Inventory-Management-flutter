@@ -1,16 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterpolo/Domain/entities/Signup.dart';
+import 'package:flutterpolo/Presentation/providers/signup/signup_notifier.dart';
+import 'package:flutterpolo/Presentation/providers/signup/signup_provider.dart';
 import 'package:flutterpolo/Presentation/widgets/TextButton.dart';
 import 'package:flutterpolo/Presentation/widgets/TextFields.dart';
+import 'package:go_router/go_router.dart';
 
-class Signupscreen1 extends StatefulWidget {
-  const Signupscreen1({super.key});
+import '../providers/signup/signup_state.dart';
+import '../widgets/SnackBar.dart';
+
+class Signupscreen1 extends ConsumerStatefulWidget {
+  final SignupPart1 userInfo;
+  const Signupscreen1({super.key, required this.userInfo});
 
   @override
-  State<Signupscreen1> createState() => _Signupscreen1State();
+  ConsumerState<Signupscreen1> createState() => _Signupscreen1State();
 }
 
-class _Signupscreen1State extends State<Signupscreen1> {
+class _Signupscreen1State extends ConsumerState<Signupscreen1> {
+  bool isLoading=false;
   String usernameErr='';
   String passwordErr='';
   String repasswordErr='';
@@ -20,8 +30,10 @@ class _Signupscreen1State extends State<Signupscreen1> {
   final rePasswordController=TextEditingController();
 
   void _handleSignup(){
+    final user=widget.userInfo;
     if(validateUsername(usernameController.text)==''&& validatePassword(passwordController.text)==''&&validateRePassword(rePasswordController.text, passwordController.text)==''){
-
+      final signupBody=SignupRequest(usernameController.text, passwordController.text, user.phoneNumber, user.email, user.birthDate, user.lastName, user.firstName);
+      ref.read(SignupNotifierProvider.notifier).signup(body:signupBody);
     }
     if(validateUsername(usernameController.text)!=''){
       setState(() {
@@ -96,6 +108,24 @@ class _Signupscreen1State extends State<Signupscreen1> {
       return '';
     }
   }
+  @override
+  void initState() {
+    super.initState();
+    ref.listen<SignupState>(SignupNotifierProvider, (previous, next){
+      if(next.error!=null){
+        customSnackBar(context, "$next.error",Color(0xFFFF0000));
+      }
+      if(next.error==null && next.signupResponse!=null){
+        customSnackBar(context, "You can now login", Color(0xFF008000));
+        context.go('/login');
+      }
+      if(next.error==null && next.isLoading!=previous?.isLoading){
+        setState(() {
+          isLoading=next.isLoading;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +160,7 @@ class _Signupscreen1State extends State<Signupscreen1> {
             customTextField(rePasswordController, TextInputType.text, "Re-Enter Password", true, "**********"),
             Row(),
             SizedBox(height: 10,),
-            customTextButton(()=>{}, "Sign-up")
+            customTextButton(_handleSignup, "Sign-up")
           ],
         ),
       )

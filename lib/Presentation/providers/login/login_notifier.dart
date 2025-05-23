@@ -1,8 +1,8 @@
 import 'package:riverpod/riverpod.dart';
 
-import '../../Domain/entities/login.dart';
-import '../../Domain/usecases/loginUsecase.dart';
-import 'login_state.dart';
+import '../../../Domain/entities/login.dart';
+import '../../../Domain/usecases/loginUsecase.dart';
+import './login_state.dart';
 
 class LoginNotifier extends StateNotifier<LoginState>{
     final Login login;

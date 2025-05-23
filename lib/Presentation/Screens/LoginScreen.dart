@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:flutterpolo/Presentation/widgets/TextButton.dart';
 import 'package:flutterpolo/Presentation/widgets/TextFields.dart';
 
-import '../providers/login_providers.dart';
-import '../providers/login_state.dart';
+import '../providers/login/login_providers.dart';
+import '../providers/login/login_state.dart';
 
 class Loginscreen extends ConsumerStatefulWidget {
   const Loginscreen({super.key});
@@ -96,9 +96,9 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
       }
     });
   }
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state=ref.watch(loginNotifierProvider);
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SizedBox.expand(

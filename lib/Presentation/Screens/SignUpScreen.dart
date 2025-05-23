@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterpolo/Domain/entities/Signup.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutterpolo/Presentation/widgets/TextButton.dart';
 import 'package:flutterpolo/Presentation/widgets/TextFields.dart';
+
+import '../providers/signup/signup_state.dart';
+import '../widgets/SnackBar.dart';
 
 class Signupscreen extends StatefulWidget {
   const Signupscreen({super.key});
@@ -40,7 +44,8 @@ class _SignupscreenState extends State<Signupscreen> {
     final email=emailController.text;
     final birth=dateController.text;
     if(validateEmail(email)==''&& validateFirstName(firstName)=='' && validateLastName(lastName)=='' && validatePhone(phoneNumber)=='' && validateBirthDate(birth)==''){
-    context.go("/signup1");
+      final userSignup1=SignupPart1(email, phoneNumber, birth, lastName, firstName);
+    context.push("/signup1", extra: userSignup1);
     }
     if(validateEmail(email)!=''){
       setState(() {

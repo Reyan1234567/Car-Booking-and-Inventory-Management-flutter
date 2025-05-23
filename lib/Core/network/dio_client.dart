@@ -1,9 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutterpolo/Core/network/Interceptor.dart';
 
 class DioClient{
-  final Dio dio;
+  late final Dio dio;
 
-  DioClient(this.dio);
+  DioClient(){
+    dio=Dio();
+    dio.interceptors.add(DioInterceptor());
+  }
 
   Future<List<dynamic>> get(String url)async{
     final response=await dio.get(url);
