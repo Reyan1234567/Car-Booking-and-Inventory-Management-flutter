@@ -5,7 +5,7 @@ TextButton customTextButton(onPressed, text){
       style: TextButton.styleFrom(
           backgroundColor: Color(0xFFEA6307),
           foregroundColor: Colors.white,
-          padding:EdgeInsets.symmetric(horizontal:20, vertical: 10),
+          padding:EdgeInsets.symmetric(horizontal:20, vertical: 15),
           shape:RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

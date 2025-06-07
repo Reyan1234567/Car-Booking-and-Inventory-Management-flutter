@@ -19,7 +19,7 @@ class _Accountscreen1State extends State<Accountscreen1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        leading: IconButton(onPressed:()=>{context.canPop},icon: Icon(Icons.arrow_back_ios)),
+        leading: IconButton(onPressed:()=>{context.pop()},icon: Icon(Icons.arrow_back_ios)),
         title: Center(child: Text("Profile")),
       ),
       body:SizedBox(height: double.infinity, width: double.infinity,
@@ -49,6 +49,5 @@ class _Accountscreen1State extends State<Accountscreen1> {
         ),
       ),
     );
-
   }
 }

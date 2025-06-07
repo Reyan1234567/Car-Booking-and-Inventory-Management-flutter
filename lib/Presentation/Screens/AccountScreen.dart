@@ -45,7 +45,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: Card(color: Colors.orange,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(12)),),
               ),
             ),
-            Padding(padding: EdgeInsets.symmetric(horizontal: 10), child:SizedBox(width: double.infinity,child: customTextButton(()=>{context.go('/account1')}, "Edit Profile")) ,)
+            Padding(padding: EdgeInsets.symmetric(horizontal: 10), child:SizedBox(width: double.infinity,child: customTextButton(()=>{context.push('/account1')}, "Edit Profile")) ,)
           ],
         ),
       ),

@@ -14,7 +14,7 @@ class _bottomNavBarState extends State<bottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         selectedIndex: currentPageIndex,
         backgroundColor:Color(0xffe96307),
         animationDuration: Duration(milliseconds: 500),
@@ -22,7 +22,7 @@ class _bottomNavBarState extends State<bottomNavBar> {
           setState(() {
             currentPageIndex = index;
             if(index==0){
-              context.go('/home');
+              context.go('/');
             }
             else if(index==1){
               context.go('/history');
@@ -35,7 +35,7 @@ class _bottomNavBarState extends State<bottomNavBar> {
         destinations: const <Widget>[
           NavigationDestination(icon: Icon(Icons.home), label: 'Home', ),
           NavigationDestination(icon: Icon(Icons.history), label: 'History'),
-          NavigationDestination(selectedIcon: Icon(Icons.account_circle), icon: Icon(Icons.bookmark_border), label: 'Account',
+          NavigationDestination(icon: Icon(Icons.bookmark_border), label: 'Account',
           )]);
   }
 }
