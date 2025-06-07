@@ -32,7 +32,6 @@ class _Accountscreen1State extends State<Accountscreen1> {
                children: [
                  Icon(Icons.account_circle,size: 150,),
                  Icon(Icons.add_circle)
-
                ],
               ),
               customTextField(usernameController, TextInputType.text, "Username", false, "Enter a new username"),

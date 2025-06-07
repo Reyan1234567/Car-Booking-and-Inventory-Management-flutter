@@ -20,7 +20,7 @@ class _bottomNavBarState extends State<bottomNavBar> {
         animationDuration: Duration(milliseconds: 500),
         onDestinationSelected: (int index) {
           setState(() {
-            currentPageIndex = index;
+            print(currentPageIndex);
             if(index==0){
               context.go('/');
             }

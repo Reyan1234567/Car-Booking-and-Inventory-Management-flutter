@@ -14,18 +14,26 @@ void main() {
 }
 
 final _router=GoRouter(
+  initialLocation: '/l',
   routes:[
-    GoRoute(
-        path:'/',
-        builder:(context,state)=>Hompagescreen()
+    ShellRoute(
+        routes:[
+        GoRoute(
+          path:'/',
+          builder:(context,state)=>Hompagescreen()
+      ),
+        GoRoute(
+            path:'/account',
+            builder:(context,state)=>AccountScreen()
+        ),
+    ],
+      builder: (context, state, child){
+          return Default(child:child);
+      }
     ),
     GoRoute(
         path:'/signup',
         builder:(context,state)=>Signupscreen()
-    ),
-    GoRoute(
-        path:'/account',
-        builder:(context,state)=>AccountScreen()
     ),
     GoRoute(
         path:'/account1',
@@ -58,5 +66,52 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class Default extends StatefulWidget {
+  final Widget child;
+
+  const Default({super.key, required this.child});
+  @override
+  State<Default> createState() => _DefaultState();
+}
+
+class _DefaultState extends State<Default>{
+  var currentIndex=0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: widget.child,
+      bottomNavigationBar: NavigationBar(destinations:
+      [
+        NavigationDestination(icon: Icon(Icons.home), label: 'Home', ),
+        NavigationDestination(icon: Icon(Icons.history), label: 'History'),
+        NavigationDestination(icon: Icon(Icons.bookmark_border), label: 'Account',)
+      ],
+      selectedIndex: currentIndex,
+        onDestinationSelected:(int index) {
+          if (index == 0) {
+            setState(() {
+              currentIndex= index;
+            });
+            context.go('/');
+          }
+          else if (index == 1) {
+            setState(() {
+              currentIndex= index;
+            });
+            context.go('/history');
+          }
+          else if (index == 2) {
+            setState(() {
+              currentIndex=index;
+            });
+            context.go('/account');
+          }
+        }),
+    );
+  }
+}
+
+
 
 

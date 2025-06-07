@@ -21,7 +21,6 @@ class _AccountScreenState extends State<AccountScreen> {
           IconButton(onPressed: ()=>{}, icon: Icon(Icons.exit_to_app), color:Colors.red)
         ],
       ),
-      bottomNavigationBar: bottomNavBar(),
       body:
       SizedBox(
         height: double.infinity,
