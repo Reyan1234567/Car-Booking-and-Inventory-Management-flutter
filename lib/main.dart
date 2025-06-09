@@ -14,7 +14,7 @@ void main() {
 }
 
 final _router=GoRouter(
-  initialLocation: '/l',
+  initialLocation: '/',
   routes:[
     ShellRoute(
         routes:[
@@ -26,10 +26,35 @@ final _router=GoRouter(
             path:'/account',
             builder:(context,state)=>AccountScreen()
         ),
-    ],
+        GoRoute(
+            path:'/history',
+            builder:(context,state)=>HistoryScreen()
+        )
+      ],
       builder: (context, state, child){
-          return Default(child:child);
+          return UserScaffold(child:child);
       }
+    ),
+    ShellRoute(
+        routes: [
+          GoRoute(
+              path: '/adminHome',
+            builder: (context, state)=>AdminHomeScreen();
+          ),
+          GoRoute(
+              path: '/bookings',
+            builder: (context, state)=>BookingsScreen()
+          ),
+          GoRoute(
+              path: '/cars',
+              builder: (context, state)=>CarsScreen()
+          ),
+          GoRoute(
+              path: '/users',
+              builder: (context, state)=>UsersScreen()
+          )
+        ],
+         builder:(contex, state, child)=>AdminScaffold(child: child)
     ),
     GoRoute(
         path:'/signup',
@@ -49,6 +74,8 @@ final _router=GoRouter(
   ]
 );
 
+
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -67,15 +94,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Default extends StatefulWidget {
+class UserScaffold extends StatefulWidget {
   final Widget child;
 
-  const Default({super.key, required this.child});
+  const UserScaffold({super.key, required this.child});
   @override
-  State<Default> createState() => _DefaultState();
+  State<UserScaffold> createState() => _UserScaffoldState();
 }
 
-class _DefaultState extends State<Default>{
+class _UserScaffoldState extends State<UserScaffold>{
   var currentIndex=0;
   @override
   Widget build(BuildContext context) {
@@ -108,6 +135,58 @@ class _DefaultState extends State<Default>{
             context.go('/account');
           }
         }),
+    );
+  }
+}
+
+class AdminScaffold extends StatefulWidget {
+  final Widget child;
+
+  const AdminScaffold({super.key, required this.child});
+  @override
+  State<UserScaffold> createState() => _AdminScaffoldState();
+}
+
+class _AdminScaffoldState extends State<UserScaffold>{
+  var currentIndex=0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: widget.child,
+      bottomNavigationBar: NavigationBar(destinations:
+      [
+        NavigationDestination(icon: Icon(Icons.home), label: 'Home', ),
+        NavigationDestination(icon: Icon(Icons.book_sharp), label: 'Bookings'),
+        NavigationDestination(icon: Icon(Icons.supervised_user_circle), label: 'Users'),
+        NavigationDestination(icon: Icon(Icons.drive_eta_rounded), label: 'Cars')
+      ],
+          selectedIndex: currentIndex,
+          onDestinationSelected:(int index) {
+            if (index == 0) {
+              setState(() {
+                currentIndex= index;
+              });
+              context.go('/adminHome');
+            }
+            else if (index == 1) {
+              setState(() {
+                currentIndex= index;
+              });
+              context.go('/bookings');
+            }
+            else if (index == 2) {
+              setState(() {
+                currentIndex=index;
+              });
+              context.go('/users');
+            }
+            else if (index == 3) {
+              setState(() {
+                currentIndex=index;
+              });
+              context.go('/cars');
+            }
+          }),
     );
   }
 }
