@@ -12,7 +12,7 @@ class LoginNotifier extends StateNotifier<LoginState>{
     Future<void> loginn(LoginRequest loginRequest) async{
       try{
         state=state.copyWith(isLoading: true);
-        await login.repository.login(loginRequest);
+        await login(loginRequest);
         state=state.copyWith(isLoading: false);
       }
       catch(e){

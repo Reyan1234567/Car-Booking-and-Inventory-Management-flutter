@@ -176,6 +176,7 @@ class _SignupscreenState extends State<Signupscreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child:Padding(
           padding: const EdgeInsets.all(25),
           child:Column(

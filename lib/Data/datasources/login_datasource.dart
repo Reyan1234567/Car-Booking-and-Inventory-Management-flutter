@@ -11,7 +11,7 @@ class LoginDataSource{
 
   Future<dynamic> login(Map<String, dynamic> json ) async{
     try{
-      final responseData = await dioClient.create(json, "http://localhost:4000/login");
+      final responseData = await dioClient.create(json, "http://localhost:4000/auth/signin");
       return (LoginResponseModel.fromJson(responseData));
     }
     on DioException catch(e) {

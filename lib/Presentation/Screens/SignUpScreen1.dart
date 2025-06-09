@@ -131,7 +131,7 @@ class _Signupscreen1State extends ConsumerState<Signupscreen1> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body:SizedBox.expand(
+      body:SingleChildScrollView(scrollDirection:Axis.vertical, child:SizedBox.expand(
         child:Padding(padding:EdgeInsets.all(25),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -164,6 +164,6 @@ class _Signupscreen1State extends ConsumerState<Signupscreen1> {
           ],
         ),
       )
-    )
+    ))
   );
 }}

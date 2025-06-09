@@ -7,6 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'package:flutterpolo/Presentation/Screens/SignUpScreen1.dart';
 
 import 'Presentation/Screens/AccountScreen1.dart';
+import 'Presentation/Screens/AdminHomeScreen.dart';
+import 'Presentation/Screens/BookingsScreen.dart';
+import 'Presentation/Screens/CarsScreen.dart';
+import 'Presentation/Screens/HistoryScreen.dart';
+import 'Presentation/Screens/UsersScreen.dart';
 import 'Presentation/Screens/hompageScreen.dart';
 
 void main() {
@@ -39,7 +44,7 @@ final _router=GoRouter(
         routes: [
           GoRoute(
               path: '/adminHome',
-            builder: (context, state)=>AdminHomeScreen();
+            builder: (context, state)=>AdminHomeScreen()
           ),
           GoRoute(
               path: '/bookings',

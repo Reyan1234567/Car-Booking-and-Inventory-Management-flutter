@@ -101,7 +101,7 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: SizedBox.expand(
+      body: SingleChildScrollView(scrollDirection:Axis.vertical, child:SizedBox.expand(
         child:Padding(
           padding: const EdgeInsets.all(25.0),
           child: Column(
@@ -172,7 +172,7 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
         ],
       )
           ,),
-      )
+      ))
     );
   }
 }
