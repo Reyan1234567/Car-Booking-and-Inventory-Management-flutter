@@ -4,6 +4,7 @@ import 'package:flutterpolo/Domain/entities/Signup.dart';
 import 'package:flutterpolo/Presentation/Screens/AccountScreen.dart';
 import 'package:flutterpolo/Presentation/Screens/LoadingScreen.dart';
 import 'package:flutterpolo/Presentation/Screens/LoginScreen.dart';
+import 'package:flutterpolo/Presentation/Screens/LogoutScreen.dart';
 import 'package:flutterpolo/Presentation/Screens/SignUpScreen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutterpolo/Presentation/Screens/SignUpScreen1.dart';
@@ -66,6 +67,10 @@ final _router=GoRouter(
     GoRoute(
         path:'/loading',
         builder:(context,state)=>Loadingscreen()
+    ),
+    GoRoute(
+        path:'/beforelogout',
+        builder:(context,state)=>Logoutscreen()
     ),
     GoRoute(
         path:'/signup',

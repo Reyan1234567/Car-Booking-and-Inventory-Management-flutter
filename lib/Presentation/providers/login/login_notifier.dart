@@ -14,8 +14,10 @@ class LoginNotifier extends StateNotifier<LoginState>{
     try{
       state=state.copyWith(isLoading: true);
       final userInfo=await login(loginRequest);
+      final uuu=await Store.getUsername().toString();
       print(userInfo.toString());
       Store.setUserInfo(userInfo.accessToken, userInfo.refreshToken, userInfo.user.username, userInfo.user.email, userInfo.user.phoneNumber, userInfo.user.lastName, userInfo.user.firstName, userInfo.user.role);
+      print(uuu);
       state=state.copyWith(isLoading: false, loginResponse:userInfo);
 
     }

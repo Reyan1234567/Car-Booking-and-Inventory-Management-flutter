@@ -4,7 +4,6 @@ class Store {
   const Store._();
   //named constructor, private indicated by "_", singleton
 
-  static const String _tokenKey="Token";
   static const String _username="";
   static const String _email="";
   static const String _phoneNumber="";
