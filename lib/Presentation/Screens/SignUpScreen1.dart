@@ -33,7 +33,7 @@ class _Signupscreen1State extends ConsumerState<Signupscreen1> {
     final user=widget.userInfo;
     if(validateUsername(usernameController.text)==''&& validatePassword(passwordController.text)==''&&validateRePassword(rePasswordController.text, passwordController.text)==''){
       final signupBody=SignupRequest(usernameController.text, passwordController.text, user.phoneNumber, user.email, user.birthDate, user.lastName, user.firstName);
-      ref.read(SignupNotifierProvider.notifier).signup(body:signupBody);
+      ref.read(SignupNotifierProvider.notifier).Signup(signupBody);
     }
     if(validateUsername(usernameController.text)!=''){
       setState(() {
@@ -180,8 +180,17 @@ class _Signupscreen1State extends ConsumerState<Signupscreen1> {
                     ]
                 ),
                 SizedBox(height: 10),
-                customTextButton(_handleSignup, "Sign-up")
-              ],
+                ElevatedButton(onPressed:_handleSignup,
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color(0xFFEA6307),
+                    foregroundColor: Colors.white,
+                    padding:EdgeInsets.symmetric(horizontal:20, vertical: 15),
+                    shape:RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child:isLoading ? CircularProgressIndicator() : Text("Signup"),
+                )              ],
             ),
           ),
         )

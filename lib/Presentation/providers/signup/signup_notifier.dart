@@ -16,6 +16,10 @@ class SignupNotifier extends StateNotifier<SignupState>{
     }
     catch(e){
       state=state.copyWith(error:e.toString());
+      print("from catch${e.toString()}");
+    }
+    finally{
+      state=state.copyWith(isLoading: false);
     }
   }
 

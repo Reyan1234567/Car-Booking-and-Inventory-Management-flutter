@@ -10,6 +10,7 @@ class SignupRepositoryImpl implements SignupRepository{
   @override
   Future<SignupResponse> signup(SignupRequest signupRequest) async{
     try{
+      print("repositoryImpl ${signnup.signup(signupRequest).toString()}");
       return await signnup.signup(signupRequest);
     }
     catch(e){

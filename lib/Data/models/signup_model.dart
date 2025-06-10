@@ -7,3 +7,19 @@ class SignupResponseModel extends SignupResponse{
     return SignupResponseModel(json['firstName'], json['lastName'], json['birthDate'], json['email'], json['phoneNumber'], json['password'], json['username'], json['role'], json['id'], json['history'], json['licensePhotoId'], json['profilePhotoId']);
   }
 }
+
+class SignupRequestModel extends SignupRequest{
+  SignupRequestModel(super.username, super.password, super.phoneNumber, super.email, super.birthDate, super.lastName, super.firstName);
+  Map<String, dynamic> toJson(){
+    return {
+      "username":username,
+      "password":password,
+      "phoneNumber":phoneNumber,
+      "email":email,
+      "birthDate":birthDate,
+      "lastName":lastName,
+      "firstName":firstName,
+
+    };
+  }
+}

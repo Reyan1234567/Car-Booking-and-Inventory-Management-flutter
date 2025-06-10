@@ -19,7 +19,8 @@ class SignupDatasource{
         'username':signupRequest.username,
         'password':signupRequest.password
       };
-      final result=await dioClient.create(signuprequest, "http://localhost:4000/signup");
+      final result=await dioClient.create(signuprequest, "http://localhost:4000/auth/signup");
+      print("dataSource ${SignupResponseModel.fromJson(result).toString()}");
       return SignupResponseModel.fromJson(result);
     }
     on DioException catch(e){
