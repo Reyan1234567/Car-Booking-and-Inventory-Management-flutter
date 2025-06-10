@@ -12,6 +12,7 @@ class SignupNotifier extends StateNotifier<SignupState>{
     try{
       state=state.copyWith(isLoading: true);
       final response=await signup(body:signupBody);
+      print(response);
       state=state.copyWith(isLoading: false, signupResponse: response);
     }
     catch(e){

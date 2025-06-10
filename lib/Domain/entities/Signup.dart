@@ -20,11 +20,9 @@ class SignupResponse{
   final String phoneNumber;
   final String birthDate;
   final List<dynamic> history;
-  final String? licensePhotoId;
-  final String? profilePhotoId;
   final String role;
 
-  SignupResponse(this.firstName, this.lastName, this.birthDate, this.email, this.phoneNumber, this.password, this.username, this.role, this.id, this.history, this.licensePhotoId, this.profilePhotoId);
+  SignupResponse(this.firstName, this.lastName, this.birthDate, this.email, this.phoneNumber, this.password, this.username, this.role, this.id, this.history);
 }
 
 class SignupPart1{

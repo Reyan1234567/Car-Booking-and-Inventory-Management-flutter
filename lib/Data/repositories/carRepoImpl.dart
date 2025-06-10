@@ -1,0 +1,22 @@
+import 'package:flutterpolo/Data/models/CarModel.dart';
+import 'package:flutterpolo/Domain/repositories/CarRepository.dart';
+
+import '../datasources/cars_datasource.dart';
+
+class carRepoImpl extends carRepository{
+  final CarsDataSource carsDataS;
+
+  carRepoImpl(this.carsDataS);
+
+  @override
+  Future<List<CarModel>> getCars() async {
+    try{
+      final response= await carsDataS.getCars();
+      return response;
+    }
+    catch(e){
+      throw Exception(e.toString());
+    }
+  }
+
+}

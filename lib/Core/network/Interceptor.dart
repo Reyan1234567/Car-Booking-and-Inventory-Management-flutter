@@ -10,7 +10,7 @@ class DioInterceptor extends Interceptor{
   @override
   Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async{
     final token=await Store.getAccessToken();
-
+    print("token: $token");
     if(token!="" && token.isNotEmpty){
       options.headers['Authorization']='Bearer $token';
     }
