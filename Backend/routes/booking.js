@@ -11,19 +11,6 @@ router.post("/booking", async (req, res) => {
   const { body } = req;
   const id = req.user._id;
   try {
-    //   const convertToDate = (stringDate) => {
-    //     const [date, month, year] = stringDate.split("/");
-    //     const newDate = new Date(year, month - 1, date);
-    //     return newDate;
-    // };
-
-    // const startDate=convertToDate(body.startDate)
-    // const endDate=convertToDate(body.endDate)
-    // const difference=endDate-startDate
-    //   const ChosenCar=await Car.find({
-    //     _id:id
-    //   })
-    //   const EstimatedCar=(ChosenCar.hourlyRate*difference)
     const response = new Booking(body);
     const newBooking = await response.save();
     const user = User.find({ id });

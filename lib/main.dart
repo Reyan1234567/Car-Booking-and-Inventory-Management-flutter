@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterpolo/Domain/entities/Signup.dart';
 import 'package:flutterpolo/Presentation/Screens/AccountScreen.dart';
+import 'package:flutterpolo/Presentation/Screens/LoadingScreen.dart';
 import 'package:flutterpolo/Presentation/Screens/LoginScreen.dart';
 import 'package:flutterpolo/Presentation/Screens/SignUpScreen.dart';
 import 'package:go_router/go_router.dart';
@@ -19,12 +20,12 @@ void main() {
 }
 
 final _router=GoRouter(
-  initialLocation: '/',
+  initialLocation: '/loading',
   routes:[
     ShellRoute(
         routes:[
         GoRoute(
-          path:'/',
+          path:'/home',
           builder:(context,state)=>Hompagescreen()
       ),
         GoRoute(
@@ -59,7 +60,11 @@ final _router=GoRouter(
               builder: (context, state)=>UsersScreen()
           )
         ],
-         builder:(contex, state, child)=>AdminScaffold(child: child)
+         builder:(context, state, child)=>AdminScaffold(child: child)
+    ),
+    GoRoute(
+        path:'/loading',
+        builder:(context,state)=>Loadingscreen()
     ),
     GoRoute(
         path:'/signup',
@@ -75,7 +80,11 @@ final _router=GoRouter(
           final user1=state.extra as SignupPart1;
           return Signupscreen1(userInfo:user1);
         }
-    )
+    ),
+    GoRoute(
+        path:'/login',
+        builder:(context,state)=>Loginscreen()
+    ),
   ]
 );
 

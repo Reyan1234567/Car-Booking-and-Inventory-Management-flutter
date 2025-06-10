@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterpolo/Data/Store/DataSource.dart';
 import 'package:flutterpolo/Domain/entities/login.dart';
 import 'package:flutterpolo/Presentation/widgets/SnackBar.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,7 @@ import '../providers/login/login_providers.dart';
 import '../providers/login/login_state.dart';
 
 class Loginscreen extends ConsumerStatefulWidget {
+
   const Loginscreen({super.key});
 
   @override
@@ -85,9 +87,15 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
       if(next.error!=null){
         customSnackBar(context, "$next.error",Color(0xFFFF0000));
       }
-      if(next.error==null && next.loginResponse!=null){
+      if(next.error==null && next.loginResponse!=null && next.loginResponse is LoginResponse){
         customSnackBar(context, "Welcome ${next.loginResponse?.user.username}", Color(0xFF008000));
-        context.go('/home');
+        final userInfo=next.loginResponse;
+        if(userInfo?.user.role=='user'){
+          context.go('/home');
+        }
+        else{
+          context.go('/');
+        }
       }
       if(next.error==null && next.isLoading!=previous?.isLoading){
         setState(() {
@@ -168,7 +176,7 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
           SizedBox(height:20),
           customTextButton(_handleLogin, isLoading?CircularProgressIndicator():"Login"),
           SizedBox(height:20),
-          Row(mainAxisAlignment:MainAxisAlignment.center,children:[Text("Dont have an account?"),TextButton(onPressed:(){context.go("/signup");}, child:Text(" Signup", style: TextStyle(color: Colors.blue.shade500)))]),
+          Row(mainAxisAlignment:MainAxisAlignment.center,children:[Text("Don't have an account?"),TextButton(onPressed:(){context.go("/signup");}, child:Text(" Signup", style: TextStyle(color: Colors.blue.shade500)))]),
         ],
       )
           ,),
