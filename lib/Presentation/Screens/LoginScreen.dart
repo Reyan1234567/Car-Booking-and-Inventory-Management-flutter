@@ -80,6 +80,7 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
     passwordController.dispose();
     super.dispose();
   }
+
   @override
   void initState() {
     super.initState();
@@ -89,7 +90,7 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
   Widget build(BuildContext context) {
     ref.listen<LoginState>(loginNotifierProvider,(previous, next){
       if(next.error!=null){
-        customSnackBar(context, "$next.error",Color(0xFFFF0000));
+        customSnackBar(context, "${next.error}",Color(0xFFFF0000));
       }
       if(next.error==null && next.loginResponse!=null && next.loginResponse is LoginResponse){
         customSnackBar(context, "Welcome ${next.loginResponse?.user.username}", Color(0xFF008000));

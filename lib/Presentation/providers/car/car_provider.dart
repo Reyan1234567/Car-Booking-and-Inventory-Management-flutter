@@ -25,7 +25,25 @@ final getCarsUseCaseProvider = Provider<getCars>((ref) {
   return getCars(carRepo);
 });
 
+final createCarUseCaseProvider = Provider<CreateCar>((ref) {
+  final carRepo = ref.watch(carRepoProvider);
+  return CreateCar(carRepo);
+});
+
+final deleteCarUseCaseProvider = Provider<DeleteCar>((ref) {
+  final carRepo = ref.watch(carRepoProvider);
+  return DeleteCar(carRepo);
+});
+
+final editCarUseCaseProvider = Provider<EditCar>((ref) {
+  final carRepo = ref.watch(carRepoProvider);
+  return EditCar(carRepo);
+});
+
 final carNotifierProvider = StateNotifierProvider<carNotifier, carState>((ref) {
   final getCarsUsecase = ref.watch(getCarsUseCaseProvider);
-  return carNotifier(getCarsUsecase);
+  final createCarUsecase = ref.watch(createCarUseCaseProvider);
+  final deleteCarUsecase = ref.watch(deleteCarUseCaseProvider);
+  final editCarUsecase = ref.watch(editCarUseCaseProvider);
+  return carNotifier(getCarsUsecase, createCarUsecase, deleteCarUsecase, editCarUsecase);
 });

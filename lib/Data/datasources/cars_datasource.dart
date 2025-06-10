@@ -21,4 +21,18 @@ class CarsDataSource{
       return e.toString();
     }
   }
+
+  Future<void> deleteCar(String id) async {
+    await _dio.delete("http://localhost:4000/car/$id");
+  }
+
+  Future<CarModel> createCar(Map<String, dynamic> carData) async {
+    final response = await _dio.create(carData, "http://localhost:4000/cars");
+    return CarModel.fromJson(response['car']);
+  }
+
+  Future<CarModel> editCar(String id, Map<String, dynamic> updates) async {
+    final response = await _dio.update(updates, "http://localhost:4000/car/$id");
+    return CarModel.fromJson(response);
+  }
 }

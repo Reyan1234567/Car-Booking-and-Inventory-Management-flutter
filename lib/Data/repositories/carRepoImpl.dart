@@ -19,4 +19,18 @@ class carRepoImpl extends carRepository{
     }
   }
 
+  @override
+  Future<void> deleteCar(String id) async {
+    await carsDataS.deleteCar(id);
+  }
+
+  @override
+  Future<CarModel> createCar(Map<String, dynamic> carData) async {
+    return await carsDataS.createCar(carData);
+  }
+
+  @override
+  Future<CarModel> editCar(String id, Map<String, dynamic> updates) async {
+    return await carsDataS.editCar(id, updates);
+  }
 }
