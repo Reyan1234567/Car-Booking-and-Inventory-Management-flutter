@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../Data/models/CarModel.dart';
 import '../../../Domain/usecases/getCarsUseCase.dart';
 import 'car_state.dart';
 
@@ -26,7 +27,7 @@ class carNotifier extends StateNotifier<carState>{
     try {
       state = state.copyWith(isLoading: true);
       final car = await createCarUsecase(carData);
-      final updatedList = List.of(state.result ?? [])..add(car);
+      final List<CarModel> updatedList = List.of(state.result ?? [])..add(car);
       state = state.copyWith(isLoading: false, result: updatedList);
     } catch (e) {
       state = state.copyWith(error: e.toString());

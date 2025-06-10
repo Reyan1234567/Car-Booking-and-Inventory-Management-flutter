@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterpolo/Data/models/CarModel.dart';
 import 'package:flutterpolo/Presentation/providers/car/car_provider.dart';
 import 'package:flutterpolo/Presentation/widgets/SnackBar.dart';
+import 'package:go_router/go_router.dart';
 
 import '../providers/car/car_state.dart';
 
@@ -38,7 +39,6 @@ class _CarsscreenState extends ConsumerState<CarsScreen> {
     final carState = ref.watch(carNotifierProvider);
 
     return Scaffold(
-      
       appBar: AppBar(
         backgroundColor: Color(0xFFEA6307),
         elevation: 0,
@@ -113,17 +113,8 @@ class _CarsscreenState extends ConsumerState<CarsScreen> {
                                       children: [
                                         IconButton(
                                           icon: Icon(Icons.edit, color: Colors.blue),
-                                          onPressed: () async {
-                                            // Navigate to edit screen
-                                            final updatedCar = await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => CarEditScreen(car: car),
-                                              ),
-                                            );
-                                            if (updatedCar != null) {
-                                              ref.read(carNotifierProvider.notifier).editCar(car.id, updatedCar);
-                                            }
+                                          onPressed: () {
+                                            context.push('/', extra:car);
                                           },
                                         ),
                                         IconButton(

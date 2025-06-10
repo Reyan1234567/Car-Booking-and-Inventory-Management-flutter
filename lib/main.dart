@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterpolo/Data/models/CarModel.dart';
 import 'package:flutterpolo/Domain/entities/Signup.dart';
 import 'package:flutterpolo/Presentation/Screens/AccountScreen.dart';
 import 'package:flutterpolo/Presentation/Screens/LoadingScreen.dart';
@@ -12,6 +13,7 @@ import 'package:flutterpolo/Presentation/Screens/SignUpScreen1.dart';
 import 'Presentation/Screens/AccountScreen1.dart';
 import 'Presentation/Screens/AdminHomeScreen.dart';
 import 'Presentation/Screens/BookingsScreen.dart';
+import 'Presentation/Screens/CarEditScreen.dart';
 import 'Presentation/Screens/CarsScreen.dart';
 import 'Presentation/Screens/HistoryScreen.dart';
 import 'Presentation/Screens/UsersScreen.dart';
@@ -67,6 +69,12 @@ final _router=GoRouter(
     GoRoute(
         path:'/loading',
         builder:(context,state)=>Loadingscreen()
+    ),
+    GoRoute(
+        path:'/carEdit',
+        builder:(context,state){
+          final car=state.extra as CarModel;
+          return CarEditScreen( car: car);}
     ),
     GoRoute(
         path:'/beforelogout',
@@ -164,10 +172,10 @@ class AdminScaffold extends StatefulWidget {
 
   const AdminScaffold({super.key, required this.child});
   @override
-  State<UserScaffold> createState() => _AdminScaffoldState();
+  State<AdminScaffold> createState() => _AdminScaffoldState();
 }
 
-class _AdminScaffoldState extends State<UserScaffold>{
+class _AdminScaffoldState extends State<AdminScaffold>{
   var currentIndex=0;
   @override
   Widget build(BuildContext context) {

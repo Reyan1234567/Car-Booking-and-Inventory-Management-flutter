@@ -99,7 +99,7 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
           context.go('/home');
         }
         else{
-          context.go('/');
+          context.go('/adminHome');
         }
       }
       if(next.error==null && next.isLoading!=previous?.isLoading){
