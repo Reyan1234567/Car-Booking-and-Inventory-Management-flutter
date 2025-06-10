@@ -10,6 +10,7 @@ import '../providers/car/car_state.dart';
 
 // Add import for navigation
 import 'CarEditScreen.dart';
+import 'CarCreateScreen.dart';
 
 class CarsScreen extends ConsumerStatefulWidget {
   const CarsScreen({super.key});
@@ -20,6 +21,13 @@ class CarsScreen extends ConsumerStatefulWidget {
 
 class _CarsscreenState extends ConsumerState<CarsScreen> {
   bool isLoading=false;
+  
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => ref.read(carNotifierProvider.notifier).getccars());
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen(carNotifierProvider, (previous, next){
@@ -77,7 +85,18 @@ class _CarsscreenState extends ConsumerState<CarsScreen> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Carcreatescreen(),
+                          ),
+                        );
+                        if (result != null) {
+                          await ref.read(carNotifierProvider.notifier).createCar(result);
+                          ref.read(carNotifierProvider.notifier).getccars();
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFEA6307),
                         shape: RoundedRectangleBorder(
@@ -114,7 +133,14 @@ class _CarsscreenState extends ConsumerState<CarsScreen> {
                                         IconButton(
                                           icon: Icon(Icons.edit, color: Colors.blue),
                                           onPressed: () {
-                                            context.push('/', extra:car);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => CarEditScreen(car: car),
+                                              ),
+                                            ).then((_) {
+                                              ref.read(carNotifierProvider.notifier).getccars();
+                                            });
                                           },
                                         ),
                                         IconButton(

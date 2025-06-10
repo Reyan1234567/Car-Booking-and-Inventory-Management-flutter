@@ -8,17 +8,19 @@ class CarsDataSource{
 
   CarsDataSource(this._dio);
 
-  Future<dynamic> getCars()async{
+  Future<List<CarModel>> getCars() async{
     try{
+      print("In getCars");
       final List<dynamic> response = await _dio.get("http://localhost:4000/cars");
-      return response.map((car){CarModel.fromJson(car);}).toList();
+      print(response);
+      return response.map((car) => CarModel.fromJson(car)).toList();
     }
     on DioException catch(e){
       throw Exception(e.response?.data);
     }
     catch(e){
       print(e.toString());
-      return e.toString();
+      throw Exception(e.toString());
     }
   }
 

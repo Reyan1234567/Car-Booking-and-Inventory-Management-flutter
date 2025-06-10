@@ -16,6 +16,7 @@ class carNotifier extends StateNotifier<carState>{
     try{
       state=state.copyWith(isLoading:true);
       final response=await getcars();
+      print("int the notifier $response");
       state=state.copyWith(isLoading: false, result: response);
     }
     catch(e){

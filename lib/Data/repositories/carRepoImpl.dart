@@ -12,6 +12,7 @@ class carRepoImpl extends carRepository{
   Future<List<CarModel>> getCars() async {
     try{
       final response= await carsDataS.getCars();
+      print("In repoImpl $response");
       return response;
     }
     catch(e){
