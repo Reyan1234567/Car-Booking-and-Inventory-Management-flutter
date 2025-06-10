@@ -51,7 +51,7 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
   void _handleLogin(){
     if(validatePassword(passwordController.text)=='' && validateUsername(usernameController.text)==''){
       final loginRequest=LoginRequest(usernameController.text, passwordController.text);
-      ref.read(loginNotifierProvider.notifier).login(loginRequest);
+      ref.read(loginNotifierProvider.notifier).loginn(loginRequest);
     }
     if(validateUsername(usernameController.text)!=''){
       setState(() {
@@ -190,8 +190,19 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
                   ],
                 ),
                 SizedBox(height: 20),
-                customTextButton(_handleLogin, isLoading ? CircularProgressIndicator() : "Login"),
-                SizedBox(height: 20),
+                // customTextButton(_handleLogin, isLoading ? CircularProgressIndicator() : "Login"),
+        ElevatedButton(onPressed:_handleLogin,
+        style: TextButton.styleFrom(
+        backgroundColor: Color(0xFFEA6307),
+        foregroundColor: Colors.white,
+        padding:EdgeInsets.symmetric(horizontal:20, vertical: 15),
+        shape:RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        ),
+        ),
+        child:isLoading ? CircularProgressIndicator() : Text("Login"),
+        ),
+        SizedBox(height: 20),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
