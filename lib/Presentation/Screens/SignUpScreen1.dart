@@ -111,6 +111,10 @@ class _Signupscreen1State extends ConsumerState<Signupscreen1> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     ref.listen<SignupState>(SignupNotifierProvider, (previous, next){
       if(next.error!=null){
         customSnackBar(context, "$next.error",Color(0xFFFF0000));
@@ -125,45 +129,62 @@ class _Signupscreen1State extends ConsumerState<Signupscreen1> {
         });
       }
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body:SingleChildScrollView(scrollDirection:Axis.vertical, child:SizedBox.expand(
-        child:Padding(padding:EdgeInsets.all(25),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Image.asset(
-                'assets/images/polo.png',
-                width: 70,
-                height:80,
-                fit:BoxFit.contain
-            ),
-            SizedBox(height: 20,),
-            Row(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: EdgeInsets.all(25),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text("SignUp", style: TextStyle(fontFamily: 'InterBold', fontSize:20),),
+                Image.asset(
+                    'assets/images/polo.png',
+                    width: 70,
+                    height: 80,
+                    fit: BoxFit.contain
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("SignUp", style: TextStyle(fontFamily: 'InterBold', fontSize: 20)),
+                  ],
+                ),
+                SizedBox(height: 10),
+                customTextField(usernameController, TextInputType.text, "Username", false, "JohnDoe"),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 10),
+                      Text(usernameErr, style: TextStyle(color: Colors.red, fontSize: 10))
+                    ]
+                ),
+                SizedBox(height: 10),
+                customTextField(passwordController, TextInputType.text, "Password", true, "**********"),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 10),
+                      Text(passwordErr, style: TextStyle(color: Colors.red, fontSize: 10))
+                    ]
+                ),
+                SizedBox(height: 10),
+                customTextField(rePasswordController, TextInputType.text, "Re-Enter Password", true, "**********"),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 10),
+                      Text(repasswordErr, style: TextStyle(color: Colors.red, fontSize: 10))
+                    ]
+                ),
+                SizedBox(height: 10),
+                customTextButton(_handleSignup, "Sign-up")
               ],
             ),
-            SizedBox(height: 10,),
-            customTextField(usernameController, TextInputType.text, "Username", false, "JohnDoe"),
-            Row(),
-            SizedBox(height: 10,),
-            customTextField(passwordController, TextInputType.text, "Password", true, "**********"),
-            Row(),
-            SizedBox(height: 10,),
-            customTextField(rePasswordController, TextInputType.text, "Re-Enter Password", true, "**********"),
-            Row(),
-            SizedBox(height: 10,),
-            customTextButton(_handleSignup, "Sign-up")
-          ],
-        ),
-      )
-    ))
-  );
-}}
+          ),
+        )
+    );
+  }
+}

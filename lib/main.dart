@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterpolo/Domain/entities/Signup.dart';
 import 'package:flutterpolo/Presentation/Screens/AccountScreen.dart';
 import 'package:flutterpolo/Presentation/Screens/LoadingScreen.dart';
@@ -16,7 +17,7 @@ import 'Presentation/Screens/UsersScreen.dart';
 import 'Presentation/Screens/hompageScreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child:MyApp()));
 }
 
 final _router=GoRouter(

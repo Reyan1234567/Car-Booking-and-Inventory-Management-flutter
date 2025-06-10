@@ -20,9 +20,9 @@ class User{
   final String phoneNumber;
   final String? profilePhoto;
   final String? licensePhoto;
-  final String firstname;
-  final String lastname;
+  final String firstName;
+  final String lastName;
   final String role;
 
-  User(this.id, this.username, this.email, this.phoneNumber, this.profilePhoto, this.licensePhoto, this.lastname, this.firstname, this.role);
+  User(this.id, this.username, this.email, this.phoneNumber, this.profilePhoto, this.licensePhoto, this.firstName, this.lastName, this.role);
 }

@@ -45,7 +45,7 @@ class _SignupscreenState extends State<Signupscreen> {
     final birth=dateController.text;
     if(validateEmail(email)==''&& validateFirstName(firstName)=='' && validateLastName(lastName)=='' && validatePhone(phoneNumber)=='' && validateBirthDate(birth)==''){
       final userSignup1=SignupPart1(email, phoneNumber, birth, lastName, firstName);
-    context.push("/signup1", extra: userSignup1);
+      context.push("/signup1", extra: userSignup1);
     }
     if(validateEmail(email)!=''){
       setState(() {
@@ -174,110 +174,111 @@ class _SignupscreenState extends State<Signupscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child:Padding(
-          padding: const EdgeInsets.all(25),
-          child:Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Spacer(),
-              Image.asset(
-                'assets/images/polo.png',
-                width: 70,
-                height:80,
-                fit:BoxFit.contain
-              ),
-              SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("SignUp", style: TextStyle(fontFamily: 'InterBold', fontSize:20),),
-                ],
-              ),
-              SizedBox(height: 20,),
-              customTextField(firstNameController, TextInputType.text, "Firstname", false, "John"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 10,),
-                  Text(firstNameErr, style: TextStyle(color: Colors.red, fontSize: 10),),
-                ],
-              ),
-              SizedBox(height: 10),
-              customTextField(lastNameController, TextInputType.text, "Lastname", false,"Doe"),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: const EdgeInsets.all(25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(width: 10,),
-                Text(lastNameErr, style: TextStyle(color: Colors.red, fontSize: 10)),
+                Image.asset(
+                    'assets/images/polo.png',
+                    width: 70,
+                    height: 80,
+                    fit: BoxFit.contain
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("SignUp", style: TextStyle(fontFamily: 'InterBold', fontSize: 20)),
+                  ],
+                ),
+                SizedBox(height: 20),
+                customTextField(firstNameController, TextInputType.text, "Firstname", false, "John"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 10),
+                    Text(firstNameErr, style: TextStyle(color: Colors.red, fontSize: 10)),
+                  ],
+                ),
+                SizedBox(height: 10),
+                customTextField(lastNameController, TextInputType.text, "Lastname", false, "Doe"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 10),
+                    Text(lastNameErr, style: TextStyle(color: Colors.red, fontSize: 10)),
+                  ],
+                ),
+                SizedBox(height: 10),
+                customTextField(phoneNumberController, TextInputType.text, "Phone-Number", false, "09 or 0712345678"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 10),
+                    Text(phoneErr, style: TextStyle(color: Colors.red, fontSize: 10)),
+                  ],
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  readOnly: true,
+                  controller: dateController,
+                  decoration: InputDecoration(
+                      labelText: "Pick a Date",
+                      suffixIcon: IconButton(
+                          onPressed: _selectDate,
+                          icon: Icon(Icons.calendar_month)
+                      ),
+                      labelStyle: TextStyle(fontFamily: "InterBold", color: Color(0xFF9D9D9D)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                              color: Color(0xFFC3C3C3),
+                              width: 1
+                          )
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                              color: Color(0xFFC3C3C3),
+                              width: 1.0
+                          )
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                              color: Colors.orange.shade600,
+                              width: 2.0
+                          )
+                      )
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 10),
+                    Text(birthErr, style: TextStyle(color: Colors.red, fontSize: 10)),
+                  ],
+                ),
+                SizedBox(height: 10),
+                customTextField(emailController, TextInputType.text, "Email", false, "johnDoe@gmail.com"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 10),
+                    Text(emailErr, style: TextStyle(color: Colors.red, fontSize: 10)),
+                  ],
+                ),
+                SizedBox(height: 10),
+                customTextButton(_handleSignup, "Next"),
               ],
             ),
-              SizedBox(height: 10),
-              customTextField(phoneNumberController, TextInputType.text, "Phone-Number", false, "09 or 0712345678"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 10,),
-                  Text(phoneErr, style: TextStyle(color: Colors.red, fontSize: 10),),
-                ],
-              ),
-              SizedBox(height: 10),
-              TextField(
-                readOnly:true,
-                controller:dateController,
-                decoration:InputDecoration(
-                  labelText: "Pick a Date",
-                  suffixIcon: IconButton(onPressed: _selectDate, icon: Icon(Icons.calendar_month)),
-                  labelStyle: TextStyle(fontFamily: "InterBold", color: Color(0xFF9D9D9D)),
-                  border:OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color:Color(0xFFC3C3C3),
-                      width:1
-                    )
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                        color: Color(0xFFC3C3C3),
-                        width: 1.0
-                    )
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: Colors.orange.shade600,
-                      width: 2.0
-                    )
-                  )
-
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 10,),
-                  Text(birthErr, style: TextStyle(color: Colors.red, fontSize: 10),),
-                ],
-              ),
-              SizedBox(height: 10),
-              customTextField(emailController, TextInputType.text, "Email", false, "johnDoe@gmail.com"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 10,),
-                  Text(emailErr, style: TextStyle(color: Colors.red, fontSize: 10),),
-                ],
-              ),
-              SizedBox(height: 10),
-              customTextButton(_handleSignup, "Next"),
-              Spacer()
-            ],
-          )
+          ),
         )
-      )
     );
   }
 }

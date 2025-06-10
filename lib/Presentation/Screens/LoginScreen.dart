@@ -83,6 +83,10 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     ref.listen<LoginState>(loginNotifierProvider,(previous, next){
       if(next.error!=null){
         customSnackBar(context, "$next.error",Color(0xFFFF0000));
@@ -103,84 +107,105 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
         });
       }
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(scrollDirection:Axis.vertical, child:SizedBox.expand(
-        child:Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Column(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Image.asset(
-              'assets/images/polo.png',
-            width: 50,
-            height: 100,
-            fit:BoxFit.contain
-          ),
-          SizedBox(height: 105),
-          Row(mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Login", style: TextStyle(fontFamily: 'InterBold', fontSize:20),),
-            ],
-          ),
-          SizedBox(height: 16),
-          customTextField(usernameController, TextInputType.text, "Username", false,''),
-          Row(mainAxisAlignment:MainAxisAlignment.start,children:[SizedBox(width: 10,), Text(usernameErr, style: TextStyle(color: Colors.red, fontSize: 10),)]),
-          SizedBox(height: 10,),
-            TextField(
-              style: TextStyle(fontFamily:'InterBold'),
-              controller: passwordController,
-              keyboardType: TextInputType.text,
-              obscureText: obsecureText,
-              decoration: InputDecoration(
-                  labelText: "Password",
-                  suffixIcon: IconButton(onPressed: changeObsecuritiy, icon:obsecureText? Icon(Icons.visibility_off_outlined):Icon(Icons.visibility_outlined)),
-                  labelStyle: TextStyle(fontFamily: 'InterBold', color: Color(0xFF9D9D9D)),
-                  border:OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide:BorderSide(
-                        color:Colors.red,
-                        width:1
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                          color:Color(0xFFC3C3C3),
-                          width:1.0
+              children: [
+                Image.asset(
+                    'assets/images/polo.png',
+                    width: 50,
+                    height: 100,
+                    fit: BoxFit.contain
+                ),
+                SizedBox(height: 105),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Login", style: TextStyle(fontFamily: 'InterBold', fontSize:20),),
+                  ],
+                ),
+                SizedBox(height: 16),
+                customTextField(usernameController, TextInputType.text, "Username", false,''),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 10,),
+                      Text(usernameErr, style: TextStyle(color: Colors.red, fontSize: 10),)
+                    ]
+                ),
+                SizedBox(height: 10,),
+                TextField(
+                  style: TextStyle(fontFamily:'InterBold'),
+                  controller: passwordController,
+                  keyboardType: TextInputType.text,
+                  obscureText: obsecureText,
+                  decoration: InputDecoration(
+                      labelText: "Password",
+                      suffixIcon: IconButton(
+                          onPressed: changeObsecuritiy,
+                          icon: obsecureText ? Icon(Icons.visibility_off_outlined) : Icon(Icons.visibility_outlined)
+                      ),
+                      labelStyle: TextStyle(fontFamily: 'InterBold', color: Color(0xFF9D9D9D)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(
+                            color: Colors.red,
+                            width: 1
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                              color: Color(0xFFC3C3C3),
+                              width: 1.0
+                          )
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                              color: Colors.orange.shade600,
+                              width: 2.0
+                          )
                       )
                   ),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.
-                      circular(12),
-                      borderSide: BorderSide(
-                          color:Colors.orange.shade600,
-                          width:2.0
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 10,),
+                      Text(passwordErr, style: TextStyle(color: Colors.red, fontSize: 10),)
+                    ]
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text("Forgot Password?", style: TextStyle(color: Colors.blue.shade500)),
+                    SizedBox(width: 10,)
+                  ],
+                ),
+                SizedBox(height: 20),
+                customTextButton(_handleLogin, isLoading ? CircularProgressIndicator() : "Login"),
+                SizedBox(height: 20),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Don't have an account?"),
+                      TextButton(
+                          onPressed: () { context.go("/signup"); },
+                          child: Text(" Signup", style: TextStyle(color: Colors.blue.shade500))
                       )
-                  )
-              ),
+                    ]
+                ),
+              ],
             ),
-          Row(mainAxisAlignment:MainAxisAlignment.start,children:[SizedBox(width: 10,), Text(passwordErr, style: TextStyle(color: Colors.red,fontSize:10),)]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text("Forgot Password?", style: TextStyle(color: Colors.blue.shade500)),
-              SizedBox(width:10,)
-            ],
           ),
-          SizedBox(height:20),
-          customTextButton(_handleLogin, isLoading?CircularProgressIndicator():"Login"),
-          SizedBox(height:20),
-          Row(mainAxisAlignment:MainAxisAlignment.center,children:[Text("Don't have an account?"),TextButton(onPressed:(){context.go("/signup");}, child:Text(" Signup", style: TextStyle(color: Colors.blue.shade500)))]),
-        ],
-      )
-          ,),
-      ))
+        )
     );
   }
 }

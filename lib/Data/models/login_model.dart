@@ -14,14 +14,15 @@ class LoginResponseModel extends LoginResponse{
   LoginResponseModel(super.accessToken, super.refreshToken, super.user);
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json){
+    print("In the fromJson");
     return LoginResponseModel(json['accessToken'], json['refreshToken'], UserModel.fromJson(json['user']));
   }
 }
 
 class UserModel extends User{
-  UserModel(super.id, super.username, super.email, super.phoneNumber, super.profilePhoto, super.licensePhoto, super.lastname, super.firstname, super.role);
+  UserModel(super.id, super.username, super.email, super.phoneNumber, super.profilePhoto, super.licensePhoto, super.firstName, super.lastName, super.role);
 
   factory UserModel.fromJson(Map<String, dynamic>json){
-    return UserModel(json['id'],json ['username'], json['email'], json['phoneNumber'], json['profilePhoto'], json['licensePhoto'], json['lastname'], json['firstname'], json['role']);
+    return UserModel(json['id'],json ['username'], json['email'], json['phoneNumber'], json['profilePhoto'], json['licensePhoto'], json['firstName'], json['lastName'], json['role']);
   }
 }

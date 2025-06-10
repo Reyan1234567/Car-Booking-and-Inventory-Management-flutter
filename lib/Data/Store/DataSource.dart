@@ -32,16 +32,14 @@ class Store {
 
   static Future<void> setUserInfo(String accessToken, String refreshToken, String username, String email, String phoneNumber, String lastName, String firstName, String role) async{
     final preferences=await SharedPreferences.getInstance();
-    (){
-      preferences.setString(_username, username);
-      preferences.setString(_email, email);
-      preferences.setString(_phoneNumber, phoneNumber);
-      preferences.setString(_lastName, lastName);
-      preferences.setString(_firstName, firstName);
-      preferences.setString(_role, role);
-      preferences.setString(_accessToken, accessToken);
-      preferences.setString(_refreshToken, refreshToken);
-    };
+    preferences.setString(_username, username);
+    preferences.setString(_email, email);
+    preferences.setString(_phoneNumber, phoneNumber);
+    preferences.setString(_lastName, lastName);
+    preferences.setString(_firstName, firstName);
+    preferences.setString(_role, role);
+    preferences.setString(_accessToken, accessToken);
+    preferences.setString(_refreshToken, refreshToken);
   }
   static Future<void> setAccessToken(String accessToken) async{
     final preferences=await SharedPreferences.getInstance();
