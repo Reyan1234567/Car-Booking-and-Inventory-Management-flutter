@@ -87,10 +87,6 @@ class _UserCreateScreenState extends ConsumerState<UserCreateScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create User'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
       ),
       body: Stack(
         children: [
@@ -98,6 +94,18 @@ class _UserCreateScreenState extends ConsumerState<UserCreateScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
+                customTextField(usernameController, TextInputType.text, 'Username', false, ''),
+                const SizedBox(height: 10),
+                customTextField(emailController, TextInputType.emailAddress, 'Email', false, ''),
+                const SizedBox(height: 10),
+                customTextField(passwordController, TextInputType.visiblePassword, 'Password', true, ''),
+                const SizedBox(height: 10),
+                customTextField(usernameController, TextInputType.text, 'Username', false, ''),
+                const SizedBox(height: 10),
+                customTextField(emailController, TextInputType.emailAddress, 'Email', false, ''),
+                const SizedBox(height: 10),
+                customTextField(passwordController, TextInputType.visiblePassword, 'Password', true, ''),
+                const SizedBox(height: 10),
                 customTextField(usernameController, TextInputType.text, 'Username', false, ''),
                 const SizedBox(height: 10),
                 customTextField(emailController, TextInputType.emailAddress, 'Email', false, ''),
@@ -126,17 +134,7 @@ class _UserCreateScreenState extends ConsumerState<UserCreateScreen> {
               ],
             ),
           ),
-          if (userState.isLoading == true)
-            Container(
-              color: Colors.black.withOpacity(0.3),
-              child: const Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFEA6307)),
-                ),
-              ),
-            ),
-        ],
-      ),
+      ]),
     );
   }
 } 
