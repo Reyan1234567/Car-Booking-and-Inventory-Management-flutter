@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterpolo/Data/models/CarModel.dart';
+import 'package:flutterpolo/Data/models/UserModel.dart';
 import 'package:flutterpolo/Domain/entities/Signup.dart';
 import 'package:flutterpolo/Presentation/Screens/AccountScreen.dart';
 import 'package:flutterpolo/Presentation/Screens/LoadingScreen.dart';
@@ -16,6 +17,8 @@ import 'Presentation/Screens/BookingsScreen.dart';
 import 'Presentation/Screens/CarEditScreen.dart';
 import 'Presentation/Screens/CarsScreen.dart';
 import 'Presentation/Screens/HistoryScreen.dart';
+import 'Presentation/Screens/UserCreateScreen.dart';
+import 'Presentation/Screens/UserEditScreen.dart';
 import 'Presentation/Screens/UsersScreen.dart';
 import 'Presentation/Screens/hompageScreen.dart';
 
@@ -76,6 +79,16 @@ final _router=GoRouter(
           final car=state.extra as CarModel;
           return CarEditScreen( car: car);}
     ),
+    GoRoute(
+        path:'/createUser',
+        builder:(context,state)=>UserCreateScreen()
+    ),
+    // GoRoute(
+    //     path:'/userEdit',
+    //     builder:(context,state){
+    //       final user=state.extra as UserModel;
+    //       return UserEditScreen( user: user);}
+    // ),
     GoRoute(
         path:'/beforelogout',
         builder:(context,state)=>Logoutscreen()

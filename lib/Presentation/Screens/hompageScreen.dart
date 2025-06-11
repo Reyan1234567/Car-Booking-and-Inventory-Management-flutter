@@ -84,7 +84,7 @@ class _HompagescreenState extends State<Hompagescreen> {
             ),
             const SizedBox(height: 30),
             SizedBox(
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width - 32.0,
               child: Card(
                 color: const Color(0xFFEA6307),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -115,7 +115,7 @@ class _HompagescreenState extends State<Hompagescreen> {
             ),
             const SizedBox(height: 16),
             SizedBox(
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width - 32.0,
               child: Card(
                 color: const Color(0xFFEA6307),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
