@@ -6,5 +6,5 @@ abstract class carRepository{
   Future<List<CarModel>> getCars();
   Future<void> deleteCar(String id);
   Future<CarModel> createCar(CarCreateRequest carData);
-  Future<CarModel> editCar(String id, Map<String, dynamic> updates);
+  Future<CarModel> editCar(String id, CarUpdate updates);
 }

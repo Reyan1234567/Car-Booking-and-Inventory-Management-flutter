@@ -47,7 +47,7 @@ class carNotifier extends StateNotifier<carState>{
     }
   }
 
-  Future<void> editCar(String id, Map<String, dynamic> updates) async {
+  Future<void> editCar(String id, CarUpdate updates) async {
     try {
       state = state.copyWith(isLoading: true);
       final updatedCar = await editCarUsecase(id, updates);

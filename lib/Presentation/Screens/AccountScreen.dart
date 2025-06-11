@@ -46,41 +46,45 @@ class _AccountScreenState extends State<AccountScreen> {
         ],
       ),
       body:
-      SizedBox(
-        height: double.infinity,
-        width:double.infinity,
+      SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.account_circle, size: 140,),
-            SizedBox(height:5,),
+            const Icon(Icons.account_circle, size: 140,),
+            const SizedBox(height: 10),
             FutureBuilder<InfoDisplay>(future: userInfo, builder: (BuildContext context, AsyncSnapshot<InfoDisplay> snapshot){
               if(snapshot.connectionState==ConnectionState.waiting){
-                return Center(child: LinearProgressIndicator(),);
+                return const Center(child: LinearProgressIndicator(),);
               }
               else if(snapshot.hasData){
                 return Column(
                     children:[
-                      Text(snapshot.data!.username, style: TextStyle(fontFamily: 'InterBold', fontSize:25, color: Colors.black),),
-                    SizedBox(height:5,),
-                    Text(snapshot.data!.email, style: TextStyle(fontFamily: 'InterLight', fontSize:15, )),
-                    SizedBox(height:5,),
-                    Text(snapshot.data!.phoneNumber, style: TextStyle(fontFamily: 'InterLight', fontSize:15, ))]
+                      Text(snapshot.data!.username, style: const TextStyle(fontFamily: 'InterBold', fontSize:25, color: Colors.black),),
+                    const SizedBox(height:5,),
+                    Text(snapshot.data!.email, style: const TextStyle(fontFamily: 'InterLight', fontSize:15, )),
+                    const SizedBox(height:5,),
+                    Text(snapshot.data!.phoneNumber, style: const TextStyle(fontFamily: 'InterLight', fontSize:15, ))]
                 );
               }
               else {
-                return Icon(Icons.no_accounts);
+                return const Icon(Icons.no_accounts);
               }
             }),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
+            const SizedBox(height: 20),
+            Card(
+              color: Colors.orange,
+              shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(12)),
+              child: const SizedBox(
                 width: double.infinity,
                 height: 200,
-                child: Card(color: Colors.orange,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(12)),),
+                child: Center(child: Text("Placeholder for more info")), // Placeholder content
               ),
             ),
-            Padding(padding: EdgeInsets.symmetric(horizontal: 10), child:SizedBox(width: double.infinity,child: customTextButton(()=>{context.push('/account1')}, "Edit Profile")) ,)
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: customTextButton(()=>{context.push('/account1')}, "Edit Profile"))
           ],
         ),
       ),

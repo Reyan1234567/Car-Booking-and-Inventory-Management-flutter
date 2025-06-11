@@ -6,6 +6,8 @@ import 'package:flutterpolo/Presentation/widgets/DropDown.dart';
 import 'package:flutterpolo/Presentation/widgets/TextFields.dart';
 import 'package:flutterpolo/Presentation/widgets/ToggleUpOrDown.dart';
 
+import '../../Domain/entities/Car.dart';
+
 class CarEditScreen extends ConsumerStatefulWidget {
   final CarModel car;
   const CarEditScreen({super.key, required this.car});
@@ -64,19 +66,20 @@ class _CarEditScreenState extends ConsumerState<CarEditScreen> {
       return;
     }
 
-    final carData = {
-      'plate': plateController.text,
-      'name': nameController.text,
-      'make': makeController.text,
-      'model': modelController.text,
-      'year': int.tryParse(yearController.text) ?? 0,
-      'transmissionType': selectedTransmission,
-      'fuelType': selectedFuel,
-      'passengerCapacity': int.tryParse(passengerCapacityController.text) ?? 0,
-      'luggageCapacity': luggageCapacityController.text,
-      'dailyRate': double.tryParse(dailyRateController.text) ?? 0.0,
-      'image': imageController.text,
-    };
+    final CarUpdate carData = CarUpdate(
+      plate: plateController.text.isNotEmpty ? plateController.text : null,
+      name: nameController.text.isNotEmpty ? nameController.text : null,
+      make: makeController.text.isNotEmpty ? makeController.text : null,
+      model: modelController.text.isNotEmpty ? modelController.text : null,
+      year: int.tryParse(yearController.text), // Will be null if parsing fails
+      transmissionType: selectedTransmission,
+      fuelType: selectedFuel,
+      passengerCapacity: int.tryParse(passengerCapacityController.text), // Will be null if parsing fails
+      luggageCapacity: luggageCapacityController.text.isNotEmpty ? luggageCapacityController.text : null,
+      dailyRate: double.tryParse(dailyRateController.text), // Will be null if parsing fails
+      image: imageController.text.isNotEmpty ? imageController.text : null,
+      // price: null, // 'price' is not in your original input, so it will naturally be null
+    );
 
     ref.read(carNotifierProvider.notifier).editCar(widget.car.id, carData);
     Navigator.pop(context);

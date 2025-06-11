@@ -32,7 +32,7 @@ class carRepoImpl extends carRepository{
   }
 
   @override
-  Future<CarModel> editCar(String id, Map<String, dynamic> updates) async {
+  Future<CarModel> editCar(String id, CarUpdate updates) async {
     return await carsDataS.editCar(id, updates);
   }
 }

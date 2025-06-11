@@ -4,14 +4,14 @@ class Store {
   const Store._();
   //named constructor, private indicated by "_", singleton
 
-  static const String _username="";
-  static const String _email="";
-  static const String _phoneNumber="";
-  static const String _lastName="";
-  static const String _firstName="";
-  static const String _role="";
-  static const String _accessToken="";
-  static const String _refreshToken="";
+  static const String _username="username_key";
+  static const String _email="email_key";
+  static const String _phoneNumber="phoneNumber_key";
+  static const String _lastName="lastName_key";
+  static const String _firstName="firstName_key";
+  static const String _role="role_key";
+  static const String _accessToken="accessToken_key";
+  static const String _refreshToken="refreshToken_key";
 
 
   // static Future<void> setToken(String token)async{
@@ -31,14 +31,14 @@ class Store {
 
   static Future<void> setUserInfo(String accessToken, String refreshToken, String username, String email, String phoneNumber, String lastName, String firstName, String role) async{
     final preferences=await SharedPreferences.getInstance();
-    preferences.setString(_username, username);
-    preferences.setString(_email, email);
-    preferences.setString(_phoneNumber, phoneNumber);
-    preferences.setString(_lastName, lastName);
-    preferences.setString(_firstName, firstName);
-    preferences.setString(_role, role);
-    preferences.setString(_accessToken, accessToken);
-    preferences.setString(_refreshToken, refreshToken);
+    await preferences.setString(_username, username);
+    await preferences.setString(_email, email);
+    await preferences.setString(_phoneNumber, phoneNumber);
+    await preferences.setString(_lastName, lastName);
+    await preferences.setString(_firstName, firstName);
+    await preferences.setString(_role, role);
+    await preferences.setString(_accessToken, accessToken);
+    await preferences.setString(_refreshToken, refreshToken);
   }
   static Future<void> setAccessToken(String accessToken) async{
     final preferences=await SharedPreferences.getInstance();
@@ -52,42 +52,42 @@ class Store {
 
   static Future<String> getUsername() async{
     final preference=await SharedPreferences.getInstance();
-    return preference.getString(_username).toString();
+    return preference.getString(_username) ?? "";
   }
 
   static Future<String> getEmail() async{
     final preference=await SharedPreferences.getInstance();
-    return preference.getString(_email).toString();
+    return preference.getString(_email) ?? "";
   }
 
   static Future<String> getPhone() async{
     final preference=await SharedPreferences.getInstance();
-    return preference.getString(_phoneNumber).toString();
+    return preference.getString(_phoneNumber) ?? "";
   }
 
   static Future<String> getLastname() async{
     final preference=await SharedPreferences.getInstance();
-    return preference.getString(_lastName).toString();
+    return preference.getString(_lastName) ?? "";
   }
 
   static Future<String> getFirstname() async{
     final preference=await SharedPreferences.getInstance();
-    return preference.getString(_firstName).toString();
+    return preference.getString(_firstName) ?? "";
   }
 
   static Future<String> getRole() async{
     final preference=await SharedPreferences.getInstance();
-    return preference.getString(_role).toString();
+    return preference.getString(_role) ?? "";
   }
 
   static Future<String> getAccessToken() async{
     final preference=await SharedPreferences.getInstance();
-    return preference.getString(_accessToken).toString();
+    return preference.getString(_accessToken) ?? "";
   }
 
   static Future<String> getRefreshToken() async{
     final preference=await SharedPreferences.getInstance();
-    return preference.getString(_refreshToken).toString();
+    return preference.getString(_refreshToken) ?? "";
   }
 
 }

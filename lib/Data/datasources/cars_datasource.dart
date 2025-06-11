@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutterpolo/Core/network/dio_client.dart';
 import 'package:flutterpolo/Domain/entities/Car.dart';
+import 'package:flutterpolo/Domain/usecases/getCarsUseCase.dart';
 
 import '../models/CarModel.dart';
 
@@ -46,8 +47,45 @@ class CarsDataSource{
     return CarModel.fromJson(response['car']);
   }
 
-  Future<CarModel> editCar(String id, Map<String, dynamic> updates) async {
-    final response = await _dio.update(updates, "http://localhost:4000/car/$id");
-    return CarModel.fromJson(response);
+  Future<CarModel> editCar(String id, CarUpdate updates) async {
+    Map<String, dynamic> jsonMap={};
+    if(updates.plate!=null){
+      jsonMap['plate']=updates.plate;
+    }
+    if(updates.dailyRate!=null){
+      jsonMap['dailyRate']=updates.dailyRate;
+    }
+    if(updates.luggageCapacity!=null){
+      jsonMap['luggageCapacity']=updates.luggageCapacity;
+    }
+    if(updates.passengerCapacity!=null){
+      jsonMap['passengerCapacity']=updates.passengerCapacity;
+    }
+    if(updates.fuelType!=null){
+      jsonMap['fuelType']=updates.fuelType;
+    }
+    if(updates.transmissionType!=null){
+      jsonMap['transmissionType']=updates.transmissionType;
+    }
+    if(updates.year!=null){
+      jsonMap['year']=updates.year;
+    }
+    if(updates.model!=null){
+      jsonMap['model']=updates.model;
+    }
+    if(updates.price!=null){
+      jsonMap['price']=updates.price;
+    }
+    if(updates.make!=null){
+      jsonMap['make']=updates.make;
+    }
+    if(updates.name!=null){
+      jsonMap['name']=updates.name;
+    }
+    if(updates.image!=null){
+      jsonMap['image']=updates.image;
+    }
+    final response = await _dio.update(jsonMap, "http://localhost:4000/cars/$id");
+    return CarModel.fromJson(response.data);
   }
 }

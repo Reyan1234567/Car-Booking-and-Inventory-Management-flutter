@@ -28,5 +28,5 @@ class DeleteCar {
 class EditCar {
   final carRepository repo;
   EditCar(this.repo);
-  Future<CarModel> call(String id, Map<String, dynamic> updates) => repo.editCar(id, updates);
+  Future<CarModel> call(String id, CarUpdate updates) => repo.editCar(id, updates);
 }

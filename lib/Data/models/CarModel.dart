@@ -8,9 +8,4 @@ class CarModel extends Car{
   }
 }
 
-// class CarCreateModel extends CarCreateRequest{
-//   CarCreateModel(super.dailyRate, super.fuelType, super.image, super.luggageCapacity, super.make, super.model, super.name, super.passengerCapacity, super.plate, super.price, super.transmissionType, super.year);
-//
-//
-// }
 
