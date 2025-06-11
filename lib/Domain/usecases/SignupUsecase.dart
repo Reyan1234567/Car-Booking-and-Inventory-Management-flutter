@@ -1,11 +1,13 @@
 import 'package:flutterpolo/Domain/entities/Signup.dart';
-
 import '../repositories/SignRepository.dart';
+import '../../../Data/models/signup_model.dart';
 
-class SignupUsecase{
+class SignupUsecase {
   final SignupRepository signupRepository;
 
   SignupUsecase(this.signupRepository);
 
-  Future<SignupResponse> call({required SignupRequest body}){return signupRepository.signup(body);}
+  Future<SignupResponse> call({required SignupRequestModel body}) {
+    return signupRepository.signup(body);
+  }
 }

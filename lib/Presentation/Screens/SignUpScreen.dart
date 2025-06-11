@@ -163,7 +163,7 @@ class _SignupscreenState extends State<Signupscreen> {
     else if(phoneNumber.length!=10){
       return "enter a valid PhoneNumber";
     }
-    else if(phoneNumber[0]!='0' && (phoneNumber[1]!='9'||phoneNumber[1]!='7')){
+    else if(phoneNumber[0]!='0' || (phoneNumber[1]!='9' && phoneNumber[1]!='7')){
       return "Phonenumber must start with 09 or 07";
     }
     else{

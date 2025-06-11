@@ -59,8 +59,8 @@ class Logoutscreen extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
+                        context.go('/login');
                         Store.clear();
-                        GoRouter.of(context).replace('/login');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,

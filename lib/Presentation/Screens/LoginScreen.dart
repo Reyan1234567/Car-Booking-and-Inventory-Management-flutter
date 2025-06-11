@@ -49,29 +49,20 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
     }
   }
   void _handleLogin(){
-    if(validatePassword(passwordController.text)=='' && validateUsername(usernameController.text)==''){
-      final loginRequest=LoginRequest(usernameController.text, passwordController.text);
+    // First validate all fields
+    final usernameError = validateUsername(usernameController.text);
+    final passwordError = validatePassword(passwordController.text);
+    
+    // Update error states
+    setState(() {
+      usernameErr = usernameError;
+      passwordErr = passwordError;
+    });
+    
+    // Only proceed with login if all validations pass
+    if(usernameError.isEmpty && passwordError.isEmpty) {
+      final loginRequest = LoginRequest(usernameController.text, passwordController.text);
       ref.read(loginNotifierProvider.notifier).loginn(loginRequest);
-    }
-    if(validateUsername(usernameController.text)!=''){
-      setState(() {
-        usernameErr=validateUsername(usernameController.text);
-      });
-    }
-    else{
-      setState(() {
-        usernameErr='';
-      });
-    }
-    if(validatePassword(passwordController.text)!=''){
-      setState(() {
-        passwordErr=validatePassword(passwordController.text);
-      });
-    }
-    else{
-      setState(() {
-        passwordErr='';
-      });
     }
   }
   @override

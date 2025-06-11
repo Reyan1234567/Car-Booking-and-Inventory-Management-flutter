@@ -12,17 +12,37 @@ class LoginNotifier extends StateNotifier<LoginState>{
 
   Future<void> loginn(LoginRequest loginRequest) async{
     try{
-      state=state.copyWith(isLoading: true);
-      final userInfo=await login(loginRequest);
-      final uuu=await Store.getUsername().toString();
-      print(userInfo.toString());
-      Store.setUserInfo(userInfo.accessToken, userInfo.refreshToken, userInfo.user.username, userInfo.user.email, userInfo.user.phoneNumber, userInfo.user.lastName, userInfo.user.firstName, userInfo.user.role);
-      print(uuu);
-      state=state.copyWith(isLoading: false, loginResponse:userInfo);
-
+      // Clear any previous state
+      state = LoginState(isLoading: true);
+      
+      // Make the login request
+      final userInfo = await login(loginRequest);
+      
+      // Store user info
+      await Store.setUserInfo(
+        userInfo.accessToken, 
+        userInfo.refreshToken, 
+        userInfo.user.username, 
+        userInfo.user.email, 
+        userInfo.user.phoneNumber, 
+        userInfo.user.lastName, 
+        userInfo.user.firstName, 
+        userInfo.user.role
+      );
+      
+      // Update state with new response
+      state = LoginState(
+        isLoading: false,
+        loginResponse: userInfo,
+        error: null
+      );
     }
     catch(e){
-      state=state.copyWith(error: e.toString());
+      state = LoginState(
+        isLoading: false,
+        error: e.toString(),
+        loginResponse: null
+      );
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterpolo/Data/models/signup_model.dart';
 import 'package:flutterpolo/Domain/entities/Signup.dart';
 import 'package:flutterpolo/Presentation/providers/signup/signup_notifier.dart';
 import 'package:flutterpolo/Presentation/providers/signup/signup_provider.dart';
@@ -30,40 +31,32 @@ class _Signupscreen1State extends ConsumerState<Signupscreen1> {
   final rePasswordController=TextEditingController();
 
   void _handleSignup(){
-    final user=widget.userInfo;
-    if(validateUsername(usernameController.text)==''&& validatePassword(passwordController.text)==''&&validateRePassword(rePasswordController.text, passwordController.text)==''){
-      final signupBody=SignupRequest(usernameController.text, passwordController.text, user.phoneNumber, user.email, user.birthDate, user.lastName, user.firstName);
+    final user = widget.userInfo;
+    
+    // First validate all fields
+    final usernameError = validateUsername(usernameController.text);
+    final passwordError = validatePassword(passwordController.text);
+    final repasswordError = validateRePassword(rePasswordController.text, passwordController.text);
+    
+    // Update error states
+    setState(() {
+      usernameErr = usernameError;
+      passwordErr = passwordError;
+      repasswordErr = repasswordError;
+    });
+    
+    // Only proceed with signup if all validations pass
+    if(usernameError.isEmpty && passwordError.isEmpty && repasswordError.isEmpty) {
+      final signupBody = SignupRequestModel(
+        usernameController.text, 
+        passwordController.text, 
+        user.phoneNumber, 
+        user.email, 
+        user.birthDate, 
+        user.lastName, 
+        user.firstName
+      );
       ref.read(SignupNotifierProvider.notifier).Signup(signupBody);
-    }
-    if(validateUsername(usernameController.text)!=''){
-      setState(() {
-        usernameErr=validateUsername(usernameController.text);
-      });
-    }
-    else{
-      setState(() {
-        usernameErr='';
-      });
-    }
-    if(validatePassword(passwordController.text)!=''){
-      setState(() {
-        passwordErr=validatePassword(passwordController.text);
-      });
-    }
-    else{
-      setState(() {
-        passwordErr='';
-      });
-    }
-    if(validateRePassword(rePasswordController.text, passwordController.text)!=''){
-      setState(() {
-        repasswordErr=validateRePassword(passwordController.text, passwordController.text);
-      });
-    }
-    else{
-      setState(() {
-        repasswordErr='';
-      });
     }
   }
 
@@ -114,18 +107,41 @@ class _Signupscreen1State extends ConsumerState<Signupscreen1> {
   }
 
   @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    rePasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    ref.listen<SignupState>(SignupNotifierProvider, (previous, next){
-      if(next.error!=null){
-        customSnackBar(context, "$next.error",Color(0xFFFF0000));
+    ref.listen<SignupState>(SignupNotifierProvider, (previous, next) {
+      if (next.error != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(next.error!),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 3),
+          )
+        );
       }
-      if(next.error==null && next.signupResponse!=null){
-        customSnackBar(context, "You can now login", Color(0xFF008000));
-        context.go('/login');
+      if (next.error == null && next.signupResponse != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Signup successful! You can now login"),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 3),
+          )
+        );
+        // Add a small delay to ensure the snackbar is visible
+        Future.delayed(Duration(seconds: 1), () {
+          context.go('/login');
+        });
       }
-      if(next.error==null && next.isLoading!=previous?.isLoading){
+      if (next.error == null && next.isLoading != previous?.isLoading) {
         setState(() {
-          isLoading=next.isLoading;
+          isLoading = next.isLoading;
         });
       }
     });
