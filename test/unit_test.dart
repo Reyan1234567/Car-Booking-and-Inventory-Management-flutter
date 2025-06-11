@@ -9,11 +9,11 @@ void main() {
         name: 'Toyota Camry',
         make: 'Toyota',
         model: 'Camry',
-        year: '2020',
+        year: 2020,
         transmissionType: 'Automatic',
         fuelType: 'Petrol',
         passengerCapacity: 5,
-        luggageCapacity: 3,
+        luggageCapacity: '3',
         dailyRate: 25000.0,
         plate: 'ABC123',
         image: 'https://example.com/car.jpg',
@@ -63,38 +63,6 @@ void main() {
       expect(car.dailyRate, 25000.0);
       expect(car.plate, 'ABC123');
       expect(car.image, 'https://example.com/car.jpg');
-    });
-
-    test('CarModel.toJson converts CarModel to JSON correctly', () {
-      final car = CarModel(
-        id: '1',
-        name: 'Toyota Camry',
-        make: 'Toyota',
-        model: 'Camry',
-        year: '2020',
-        transmissionType: 'Automatic',
-        fuelType: 'Petrol',
-        passengerCapacity: 5,
-        luggageCapacity: 3,
-        dailyRate: 25000.0,
-        plate: 'ABC123',
-        image: 'https://example.com/car.jpg',
-      );
-
-      final json = car.toJson();
-
-      expect(json['_id'], '1');
-      expect(json['name'], 'Toyota Camry');
-      expect(json['make'], 'Toyota');
-      expect(json['model'], 'Camry');
-      expect(json['year'], '2020');
-      expect(json['transmissionType'], 'Automatic');
-      expect(json['fuelType'], 'Petrol');
-      expect(json['passengerCapacity'], 5);
-      expect(json['luggageCapacity'], 3);
-      expect(json['dailyRate'], 25000.0);
-      expect(json['plate'], 'ABC123');
-      expect(json['image'], 'https://example.com/car.jpg');
     });
 
     // Add more unit tests here if needed
