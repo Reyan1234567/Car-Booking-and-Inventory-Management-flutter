@@ -50,7 +50,6 @@ class UserUpdate {
   final String? phoneNumber;
   final String? firstName;
   final String? lastName;
-  final String? role;
   final String? profilePhoto;
   final String? licensePhoto;
 
@@ -60,7 +59,6 @@ class UserUpdate {
     this.phoneNumber,
     this.firstName,
     this.lastName,
-    this.role,
     this.profilePhoto,
     this.licensePhoto,
   });

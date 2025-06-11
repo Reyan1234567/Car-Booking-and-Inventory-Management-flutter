@@ -21,7 +21,6 @@ class _UserEditScreenState extends ConsumerState<UserEditScreen> {
   late TextEditingController _phoneController;
   late TextEditingController _firstNameController;
   late TextEditingController _lastNameController;
-  late TextEditingController _roleController;
 
   @override
   void initState() {
@@ -31,7 +30,6 @@ class _UserEditScreenState extends ConsumerState<UserEditScreen> {
     _phoneController = TextEditingController(text: widget.user.phoneNumber);
     _firstNameController = TextEditingController(text: widget.user.firstName);
     _lastNameController = TextEditingController(text: widget.user.lastName);
-    _roleController = TextEditingController(text: widget.user.role);
   }
 
   @override
@@ -41,7 +39,6 @@ class _UserEditScreenState extends ConsumerState<UserEditScreen> {
     _phoneController.dispose();
     _firstNameController.dispose();
     _lastNameController.dispose();
-    _roleController.dispose();
     super.dispose();
   }
 
@@ -53,7 +50,6 @@ class _UserEditScreenState extends ConsumerState<UserEditScreen> {
         phoneNumber: _phoneController.text,
         firstName: _firstNameController.text,
         lastName: _lastNameController.text,
-        role: _roleController.text,
       );
 
       await ref.read(userNotifierProvider.notifier).updateUser(widget.user.id, updates);
@@ -197,24 +193,6 @@ class _UserEditScreenState extends ConsumerState<UserEditScreen> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a last name';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 16),
-                    TextFormField(
-                      controller: _roleController,
-                      decoration: InputDecoration(
-                        labelText: 'Role',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a role';
                         }
                         return null;
                       },

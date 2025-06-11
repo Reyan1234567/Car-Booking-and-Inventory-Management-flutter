@@ -72,9 +72,6 @@ class UsersDataSource{
       if (updates.lastName != null) {
         jsonMap['lastName'] = updates.lastName;
       }
-      if (updates.role != null) {
-        jsonMap['role'] = updates.role;
-      }
       if (updates.profilePhoto != null) {
         jsonMap['profilePhoto'] = updates.profilePhoto;
       }
