@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutterpolo/Core/network/dio_client.dart';
+import 'package:flutterpolo/Domain/entities/Car.dart';
 
 import '../models/CarModel.dart';
 
@@ -28,8 +29,20 @@ class CarsDataSource{
     await _dio.delete("http://localhost:4000/car/$id");
   }
 
-  Future<CarModel> createCar(Map<String, dynamic> carData) async {
-    final response = await _dio.create(carData, "http://localhost:4000/cars");
+  Future<CarModel> createCar(CarCreateRequest carData) async {
+    final response = await _dio.create({
+      "name": carData.name,
+      "make": carData.make,
+      "price":carData.price,
+      "model":carData.model,
+      "year": carData.year,
+      "transmissionType": carData.transmissionType,
+      "fuelType": carData.fuelType,
+      "passengerCapacity": carData.passengerCapacity,
+      "luggageCapacity": carData.luggageCapacity,
+      "dailyRate": carData.dailyRate,
+      "plate": carData.plate,
+    }, "http://localhost:4000/cars");
     return CarModel.fromJson(response['car']);
   }
 

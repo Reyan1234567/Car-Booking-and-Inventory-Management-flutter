@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterpolo/Domain/entities/Car.dart';
 
 import '../../../Data/models/CarModel.dart';
 import '../../../Domain/usecases/getCarsUseCase.dart';
@@ -24,7 +25,7 @@ class carNotifier extends StateNotifier<carState>{
     }
   }
 
-  Future<void> createCar(Map<String, dynamic> carData) async {
+  Future<void> createCar(CarCreateRequest carData) async {
     try {
       state = state.copyWith(isLoading: true);
       final car = await createCarUsecase(carData);

@@ -1,3 +1,4 @@
+import 'package:flutterpolo/Domain/entities/Car.dart';
 import 'package:flutterpolo/Domain/repositories/CarRepository.dart';
 
 import '../../Data/models/CarModel.dart';
@@ -15,7 +16,7 @@ class getCars{
 class CreateCar {
   final carRepository repo;
   CreateCar(this.repo);
-  Future<CarModel> call(Map<String, dynamic> carData) => repo.createCar(carData);
+  Future<CarModel> call(CarCreateRequest carData) => repo.createCar(carData);
 }
 
 class DeleteCar {

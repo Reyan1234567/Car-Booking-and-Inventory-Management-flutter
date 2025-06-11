@@ -7,3 +7,10 @@ class CarModel extends Car{
     return CarModel(id: json['_id'], name: json['name'], make: json['make'], model: json['model'], year: json['year'], transmissionType: json['transmissionType'], fuelType: json['fuelType'], passengerCapacity: json['passengerCapacity'], luggageCapacity: json['luggageCapacity'], dailyRate: json['dailyRate'], plate: json['plate'], image: json['image']??"");
   }
 }
+
+// class CarCreateModel extends CarCreateRequest{
+//   CarCreateModel(super.dailyRate, super.fuelType, super.image, super.luggageCapacity, super.make, super.model, super.name, super.passengerCapacity, super.plate, super.price, super.transmissionType, super.year);
+//
+//
+// }
+

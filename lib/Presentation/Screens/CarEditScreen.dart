@@ -112,29 +112,50 @@ class _CarEditScreenState extends ConsumerState<CarEditScreen> {
             SizedBox(height: 10),
             customTextField(imageController, TextInputType.text, 'Image URL', false, ''),
             SizedBox(height: 20),
-            customDropDown(transmissionTypes, (newValue) {
-              setState(() {
-                selectedTransmission = newValue;
-              });
-            }, selectedTransmission),
-            SizedBox(height: 10),
-            customDropDown(fuelTypes, (newValue) {
-              setState(() {
-                selectedFuel = newValue;
-              });
-            }, selectedFuel),
-            SizedBox(height: 20),
-            NumberStepper(passengerCapacityController, () {
-              int temp = int.parse(passengerCapacityController.text) + 1;
-              passengerCapacityController.text = temp.toString();
-            }, () {
-              int temp = int.parse(passengerCapacityController.text) - 1;
-              if (temp <= 0) {
-                passengerCapacityController.text = "0";
-              } else {
-                passengerCapacityController.text = temp.toString();
-              }
-            }),
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Additional Details",
+                      style: TextStyle(
+                        color: Color(0xFF7B4BBA),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    customDropDown(transmissionTypes, (newValue) {
+                      setState(() {
+                        selectedTransmission = newValue;
+                      });
+                    }, selectedTransmission),
+                    SizedBox(height: 10),
+                    customDropDown(fuelTypes, (newValue) {
+                      setState(() {
+                        selectedFuel = newValue;
+                      });
+                    }, selectedFuel),
+                    SizedBox(height: 10),
+                    NumberStepper(passengerCapacityController, () {
+                      int temp = int.parse(passengerCapacityController.text) + 1;
+                      passengerCapacityController.text = temp.toString();
+                    }, () {
+                      int temp = int.parse(passengerCapacityController.text) - 1;
+                      if (temp <= 0) {
+                        passengerCapacityController.text = "0";
+                      } else {
+                        passengerCapacityController.text = temp.toString();
+                      }
+                    }),
+                  ],
+                ),
+              ),
+            ),
             SizedBox(height: 30),
             ElevatedButton(
               onPressed: _submitForm,

@@ -1,4 +1,5 @@
 import 'package:flutterpolo/Data/models/CarModel.dart';
+import 'package:flutterpolo/Domain/entities/Car.dart';
 import 'package:flutterpolo/Domain/repositories/CarRepository.dart';
 
 import '../datasources/cars_datasource.dart';
@@ -26,7 +27,7 @@ class carRepoImpl extends carRepository{
   }
 
   @override
-  Future<CarModel> createCar(Map<String, dynamic> carData) async {
+  Future<CarModel> createCar(CarCreateRequest carData) async {
     return await carsDataS.createCar(carData);
   }
 
