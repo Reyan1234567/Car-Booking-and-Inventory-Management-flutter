@@ -83,7 +83,7 @@ class UsersDataSource{
         jsonMap,
         "http://localhost:4000/auth/updateAccount/$id",
       );
-      return UserModel.fromJson(response);
+      return UserModel.fromJson(response['user']);
     } on DioException catch (e) {
       throw Exception(e.response?.data);
     } catch (e) {

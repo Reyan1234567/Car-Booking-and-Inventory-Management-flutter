@@ -25,9 +25,6 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen(userNotifierProvider, (previous, next) {
-      if (next.error != null) {
-        customSnackBar(context, "${next.error}", Color(0xFFFF0000));
-      }
       if (next.error == null && next.users != null && next.users is List<UserModel>) {
         final users = next.users;
       }
@@ -96,29 +93,29 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
                         fontSize: 22,
                       ),
                     ),
-                    ElevatedButton.icon(
-                      onPressed: () async {
-                        final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const UserCreateScreen(),
-                          ),
-                        );
-                        if (result != null) {
-                          await ref.read(userNotifierProvider.notifier).createUser(result);
-                          ref.read(userNotifierProvider.notifier).getUsers();
-                        }
-                      },
-                      icon: Icon(Icons.add, color: Colors.white),
-                      label: Text("Add New User", style: TextStyle(color: Colors.white)),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFEA6307),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      ),
-                    ),
+                    // ElevatedButton.icon(
+                    //   onPressed: () async {
+                    //     final result = await Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //         builder: (context) => const UserCreateScreen(),
+                    //       ),
+                    //     );
+                    //     if (result != null) {
+                    //       await ref.read(userNotifierProvider.notifier).createUser(result);
+                    //       ref.read(userNotifierProvider.notifier).getUsers();
+                    //     }
+                    //   },
+                    //   icon: Icon(Icons.add, color: Colors.white),
+                    //   label: Text("Add New User", style: TextStyle(color: Colors.white)),
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: Color(0xFFEA6307),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(12),
+                    //     ),
+                    //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    //   ),
+                    // ),
                   ],
                 ),
                 SizedBox(height: 20),

@@ -86,6 +86,6 @@ class CarsDataSource{
       jsonMap['image']=updates.image;
     }
     final response = await _dio.update(jsonMap, "http://localhost:4000/cars/$id");
-    return CarModel.fromJson(response.data);
+    return CarModel.fromJson(response);
   }
 }

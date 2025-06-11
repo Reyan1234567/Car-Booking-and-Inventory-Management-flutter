@@ -54,9 +54,14 @@ class UserNotifier extends StateNotifier<UserState> {
       state = state.copyWith(isLoading: true);
       final updatedUser = await editUserUsecase(id, updates);
       final updatedList = (state.users ?? []).map((user) => user.id == id ? updatedUser : user).toList();
-      state = state.copyWith(isLoading: false, users: updatedList);
+      state = state.copyWith(isLoading: false, users: updatedList, error: null);
     } catch (e) {
-      state = state.copyWith(error: e.toString());
+      state = state.copyWith(
+        isLoading: false,
+        error: e.toString().contains('Exception:') 
+          ? e.toString().split('Exception:')[1].trim()
+          : 'Failed to update user. Please try again.'
+      );
     }
   }
 }

@@ -18,8 +18,17 @@ class DioClient{
     await dio.delete(url);
   }
 
-  Future<dynamic> update(Map <String, dynamic> updates, String url)async{
-   return await dio.patch(url, data: updates);
+  Future<Map<String, dynamic>> update(Map <String, dynamic> updates, String url)async{
+   final response = await dio.patch(url, data: updates);
+   if (response.data == null) {
+      throw DioException(
+        requestOptions: response.requestOptions,
+        response: response,
+        type: DioExceptionType.badResponse,
+        error: "Empty response data for update operation.",
+      );
+    }
+   return response.data as Map<String, dynamic>;
   }
 
   Future<Map<String, dynamic>> create(Map <String, dynamic> creates, String url)async {

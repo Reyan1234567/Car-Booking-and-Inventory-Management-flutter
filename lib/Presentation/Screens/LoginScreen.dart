@@ -95,11 +95,11 @@ class _LoginscreenState extends ConsumerState<Loginscreen> {
       if(next.error==null && next.loginResponse!=null && next.loginResponse is LoginResponse){
         customSnackBar(context, "Welcome ${next.loginResponse?.user.username}", Color(0xFF008000));
         final userInfo=next.loginResponse;
-        if(userInfo?.user.role=='user'){
-          context.go('/home');
+        if(userInfo?.user.role=='admin'){
+          context.go('/adminHome');
         }
         else{
-          context.go('/adminHome');
+          context.go('/home');
         }
       }
       if(next.error==null && next.isLoading!=previous?.isLoading){
